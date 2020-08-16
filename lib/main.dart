@@ -25,6 +25,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Home')),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -38,9 +39,46 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
-          Card(
-            child: Text('List of TX'),
-            color: Colors.red,
+          Column(
+            children: transactions.map((tx) {
+              return Row(
+                children: [
+                  Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 15,
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.purple, width: 2)),
+                      child: Text(
+                        tx.amount.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.purple),
+                      )),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tx.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        tx.date.toString(),
+                        style: TextStyle(
+                          color: Colors.grey
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              );
+            }).toList(),
           )
         ],
       ),
