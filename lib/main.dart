@@ -26,7 +26,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Home')),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -38,6 +38,23 @@ class MyHomePage extends StatelessWidget {
                 child: Text('CHART!'),
               ),
               elevation: 5,
+            ),t
+          ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextField(decoration: InputDecoration(labelText: 'Title')),
+                  TextField(decoration: InputDecoration(labelText: 'Amountr')),
+                  FlatButton(
+                      textColor: Colors.purple,
+                      child: Text('Add Transaction'),
+                      onPressed: () {} )
+                ],
+              ),
             ),
           ),
           Column(
@@ -71,9 +88,7 @@ class MyHomePage extends StatelessWidget {
                       ),
                       Text(
                         DateFormat.yMMMd().format(tx.date),
-                        style: TextStyle(
-                          color: Colors.grey
-                        ),
+                        style: TextStyle(color: Colors.grey),
                       )
                     ],
                   )
