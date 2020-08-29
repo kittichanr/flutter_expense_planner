@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.purple,
           accentColor: Colors.amber,
           fontFamily: 'QuickSand',
+          errorColor: Colors.red,
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(
                     fontFamily: 'OpenSans',
@@ -54,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount,DateTime chosenDate) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime chosenDate) {
     final newTx = Transaction(
         title: txTitle,
         amount: txAmount,
@@ -63,6 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       _userTransactions.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
     });
   }
 
@@ -107,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //   ),
             // ),
             Chart(_recentTransactions),
-            TransactionList(_userTransactions)
+            TransactionList(_userTransactions,_deleteTransaction)
           ],
         ),
       ),
