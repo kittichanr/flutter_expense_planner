@@ -139,7 +139,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Show Cart'),
+                Text(
+                  'Show Cart',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
                 Switch.adaptive(
                     activeColor: Theme.of(context).accentColor,
                     value: _showChart,

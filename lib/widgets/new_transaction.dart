@@ -1,8 +1,8 @@
-import 'dart:ui';
-
+import 'package:expense_planner_app/widgets/adaptive_flat_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import './adaptive_flat_button.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTx;
 
@@ -84,14 +84,7 @@ class _NewTransactionState extends State<NewTransaction> {
                           ? 'No Date Chosen!'
                           : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
                     ),
-                    FlatButton(
-                      textColor: Theme.of(context).primaryColor,
-                      onPressed: _presentDatePicker,
-                      child: Text(
-                        'Choose Date!',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    )
+                    AdaptiveButton('Choose Date!', _presentDatePicker)
                   ],
                 ),
               ),
