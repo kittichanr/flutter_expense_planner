@@ -52,7 +52,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final List<Transaction> _userTransactions = [
     // Transaction(
     //     id: 't1', title: 'New Shoes', amount: 99.99, date: DateTime.now()),
@@ -60,6 +60,21 @@ class _MyHomePageState extends State<MyHomePage> {
     //     id: 't2', title: 'New Guitar', amount: 60.99, date: DateTime.now()),
   ];
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {}
+
+  @override
+  dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -98,8 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  List<Widget> _buildLandsscapeContent(
-      MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
+  List<Widget> _buildLandsscapeContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget txListWidget) {
     return [
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(
@@ -126,8 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  List<Widget> _buildPortraitContent(
-      MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery,
+      PreferredSizeWidget appBar, Widget txListWidget) {
     return [
       Container(
           height: (mediaQuery.size.height -
@@ -139,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  Widget _buildAppBar(){
+  Widget _buildAppBar() {
     return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text('Personal Expensessr'),
@@ -163,7 +178,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           );
   }
-
 
   @override
   Widget build(BuildContext context) {
