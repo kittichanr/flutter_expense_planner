@@ -98,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  List<Widget> _buildLandsscapeContent(MediaQueryData mediaQuery,
-      PreferredSizeWidget appBar, Widget txListWidget) {
+  List<Widget> _buildLandsscapeContent(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
     return [
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(
@@ -126,8 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery,
-      PreferredSizeWidget appBar, Widget txListWidget) {
+  List<Widget> _buildPortraitContent(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
     return [
       Container(
           height: (mediaQuery.size.height -
@@ -139,32 +139,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  Widget _buildAppBar(Widget pageBody, PreferredSizeWidget appBar) {
-    return Scaffold(
-      appBar: appBar,
-      body: pageBody,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Platform.isIOS
-          ? Container()
-          : FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => _startAddNewTransaction(context),
-            ),
-    );
-  }
-
-  Widget _buildCupertinoAppBar(Widget pageBody, PreferredSizeWidget appBar) {
-    return CupertinoPageScaffold(
-      child: pageBody,
-      navigationBar: appBar,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final PreferredSizeWidget appBar = Platform.isIOS
+  Widget _buildAppBar(){
+    return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text('Personal Expensessr'),
             trailing: Row(
@@ -186,6 +162,14 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ],
           );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final PreferredSizeWidget appBar = _buildAppBar();
     final txListWidget = Container(
         height: (mediaQuery.size.height -
                 appBar.preferredSize.height -
@@ -205,7 +189,21 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ));
     return Platform.isIOS
-        ? _buildCupertinoAppBar(pageBody, appBar)
-        : _buildAppBar(pageBody, appBar);
+        ? CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: appBar,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _startAddNewTransaction(context),
+                  ),
+          );
   }
 }
